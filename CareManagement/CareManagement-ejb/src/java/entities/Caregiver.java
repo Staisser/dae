@@ -9,12 +9,17 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -26,26 +31,35 @@ import javax.persistence.OneToMany;
     query = "SELECT m FROM Caregiver m ORDER BY m.username")})
 public class Caregiver extends UserAuthentication implements Serializable {
    
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "caregiver", cascade = CascadeType.REMOVE)
     private LinkedList<Patient> patients;
     
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private LinkedList<MaterialApplication> procedures;
+    @OneToMany(mappedBy = "caregiver", cascade = CascadeType.REMOVE)
+    private LinkedList<MaterialApplication> materialApplication;
     
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "caregiver", cascade = CascadeType.REMOVE)
     private LinkedList<Materials> materials;
+    
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "caregiver")
+    private Metrics metric;
+    
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "HEALTHCAREPROVIDER_CAREGIVER_ID")
+    private HealthcareProvider healthcareProvider;
     
     public Caregiver(){
         this.patients = new LinkedList<>();     
-        this.procedures = new LinkedList<>();
+        this.materialApplication = new LinkedList<>();
         this.materials = new LinkedList<>();
     }
     
-    public Caregiver(String username, String password, String name, String email) {
-        super(username, password, name, email);
+    public Caregiver(String username, String password, String name, String email, HealthcareProvider healthcareprovider) {
+        super(username, UserGroup.GROUP.Caregiver, password, name, email);
         this.patients = new LinkedList<>();
-        this.procedures = new LinkedList<>();
+        this.materialApplication = new LinkedList<>();
         this.materials = new LinkedList<>();
+        this.healthcareProvider = healthcareprovider;
     }
 
     public LinkedList<Patient> getPatients() {
@@ -56,12 +70,12 @@ public class Caregiver extends UserAuthentication implements Serializable {
         this.patients = patients;
     }
 
-    public LinkedList<MaterialApplication> getProcedures() {
-        return procedures;
+    public LinkedList<MaterialApplication> getMaterialApplication() {
+        return materialApplication;
     }
 
-    public void setProcedures(LinkedList<MaterialApplication> procedures) {
-        this.procedures = procedures;
+    public void setMaterialApplication(LinkedList<MaterialApplication> materialApplication) {
+        this.materialApplication = materialApplication;
     }
 
     public LinkedList<Materials> getMaterials() {
@@ -80,12 +94,12 @@ public class Caregiver extends UserAuthentication implements Serializable {
         this.materials.remove(m);
     }
     
-    public void addProcedure(MaterialApplication p){
-        this.procedures.add(p);
+    public void addMaterialApplication(MaterialApplication p){
+        this.materialApplication.add(p);
     }
     
-    public void removeProcedure(MaterialApplication p){
-        this.procedures.remove(p);
+    public void removeMaterialApplication(MaterialApplication p){
+        this.materialApplication.remove(p);
     }
     
     public void addPatient(Patient p){

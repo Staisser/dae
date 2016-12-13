@@ -26,12 +26,9 @@ public class Materials implements Serializable {
     
     private Caregiver caregiver;
     
-    private Resources resource;
-
-    public Materials(HealthcareProvider creator, Caregiver caregiver, Resources resouce) {
+    public Materials(HealthcareProvider creator, Caregiver caregiver) {
         this.creator = creator;
         this.caregiver = caregiver;
-        this.resource = resource;
     }
 
     public Materials() {
@@ -52,15 +49,5 @@ public class Materials implements Serializable {
     public void setCaregiver(Caregiver caregiver) {
         this.caregiver = caregiver;
     }
-
-    public Resources getResource() {
-        return resource;
-    }
-
-    public void setResource(Resources resource) {
-        this.resource = resource;
-    }
-    
-    
     
 }

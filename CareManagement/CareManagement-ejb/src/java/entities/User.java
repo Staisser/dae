@@ -6,11 +6,22 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -35,11 +46,15 @@ public class User implements Serializable {
     message = "{invalid.email}")
     protected String email;
     
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    protected UserGroup group;
+    
     protected User() {
     }
     
-    public User(String username, String name, String email) {
+    protected User(String username, UserGroup.GROUP group, String name, String email) {
         this.username = username;
+        this.group = new UserGroup(group, this);
         this.name = name;
         this.email = email;
     }
@@ -67,7 +82,5 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }    
-
-    
     
 }

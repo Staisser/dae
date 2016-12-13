@@ -9,6 +9,9 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -22,6 +25,9 @@ public class MaterialApplication implements Serializable {
     
     private Patient patient;
     
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "CAREGIVER_MATERIALAPP_ID")
     private Caregiver caregiver;
     
     private Materials material;

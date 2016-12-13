@@ -25,6 +25,6 @@ public class Administrator extends UserAuthentication implements Serializable {
     }
 
     public Administrator(String username, String password, String name, String email) {
-        super(username, password, name, email);
+        super(username, UserGroup.GROUP.Administrator, password, name, email);
     }
 }

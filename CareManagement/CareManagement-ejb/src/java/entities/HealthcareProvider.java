@@ -7,9 +7,11 @@ package entities;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -22,14 +24,22 @@ import javax.persistence.NamedQuery;
 
 public class HealthcareProvider extends UserAuthentication implements Serializable {
     
+    @OneToMany(mappedBy = "healthcareProvider", cascade = CascadeType.REMOVE)
+    private LinkedList<Patient> patients;
+    
+    @OneToMany(mappedBy = "caregiver", cascade = CascadeType.REMOVE)
+    private LinkedList<Caregiver> caregivers;
     
     protected HealthcareProvider(){
         super();
+        this.patients =  new LinkedList<>();
+        this.caregivers =  new LinkedList<>();
+    }
+
+    public HealthcareProvider(String username, String password, String name, String email) {
+        super(username, UserGroup.GROUP.HealthProvider, password, name, email);
     }
     
-    public HealthcareProvider(String username, String password, String name, String email) {
-        super(username, password, name, email);
-        
-    }
+    
     
 }

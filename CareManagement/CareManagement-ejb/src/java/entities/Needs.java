@@ -12,6 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -28,6 +31,11 @@ public class Needs implements Serializable {
     private String priority;
     
     private Date date;
+    
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "PATIENT_ID")
+    private Patient patient;
     
     public Needs(String problem, String priority, Date date) {
         this.problem = problem;

@@ -30,8 +30,6 @@ public class ConfigBean {
     private NeedsBean needsBean;
     @EJB
     private MaterialsBean materialsBean;
-    @EJB
-    private ResourcesBean resourcesBean;
     
     @PostConstruct
     public void populateBD() {
