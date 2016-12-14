@@ -7,10 +7,12 @@ package entities;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -41,6 +43,8 @@ public class EvaluationTools implements Serializable {
     
     private String question4;
     
+    @OneToMany(mappedBy = "evaluationTool", cascade = CascadeType.REMOVE)
+    private LinkedList<Classification> classifications;
 
     public EvaluationTools() {
     }
@@ -51,6 +55,7 @@ public class EvaluationTools implements Serializable {
         this.question2 = question2;
         this.question3 = question3;
         this.question4 = question4;
+        this.classifications = new LinkedList<>();
     }
     
     public Long getId() {
@@ -100,6 +105,21 @@ public class EvaluationTools implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public LinkedList<Classification> getClassifications() {
+        return classifications;
+    }
+
+    public void setClassifications(LinkedList<Classification> classifications) {
+        this.classifications = classifications;
+    }
     
+    public void removeClassification(Classification c) {
+        this.classifications.remove(c);
+    }
+    
+    public void addClassification(Classification c){
+        this.classifications.add(c);
+    }
     
 }

@@ -6,11 +6,18 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.LinkedList;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -18,11 +25,18 @@ import javax.validation.constraints.NotNull;
  * @author Joao_Pinto
  */
 @Entity
+@Table(name = "MATERIALS_APPLICATION",
+uniqueConstraints =
+@UniqueConstraint(columnNames = {"ID"}))
 public class MaterialApplication implements Serializable {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "PATIENT_MATERIALAPP_ID")
     private Patient patient;
     
     @NotNull
@@ -30,9 +44,20 @@ public class MaterialApplication implements Serializable {
     @JoinColumn(name = "CAREGIVER_MATERIALAPP_ID")
     private Caregiver caregiver;
     
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "MATERIALS_MATERIALAPP_ID")
     private Materials material;
     
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "NEEDS_MATERIALAPP_ID")
     private Needs need;
+    
+    //TODO: Por automatico pela Base de Dados
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
     public MaterialApplication(Patient patient, Caregiver caregiver, Materials material, Needs need) {
         this.patient = patient;
@@ -66,6 +91,30 @@ public class MaterialApplication implements Serializable {
 
     public void setNeed(Needs need) {
         this.need = need;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Materials getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Materials material) {
+        this.material = material;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
     
     

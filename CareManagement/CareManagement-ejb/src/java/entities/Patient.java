@@ -32,7 +32,7 @@ public class Patient extends User {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "CAREGIVER_ID")
+    @JoinColumn(name = "CAREGIVER_PATIENT_ID")
     private Caregiver caregiver;
 
     @NotNull

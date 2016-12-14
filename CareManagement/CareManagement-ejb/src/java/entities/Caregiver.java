@@ -109,4 +109,22 @@ public class Caregiver extends UserAuthentication implements Serializable {
     public void removePatient(Patient p){
         this.patients.remove(p);
     }
+
+    public Metrics getMetric() {
+        return metric;
+    }
+
+    public void setMetric(Metrics metric) {
+        this.metric = metric;
+    }
+
+    public HealthcareProvider getHealthcareProvider() {
+        return healthcareProvider;
+    }
+
+    public void setHealthcareProvider(HealthcareProvider healthcareProvider) {
+        this.healthcareProvider = healthcareProvider;
+    }
+    
+    
 }
