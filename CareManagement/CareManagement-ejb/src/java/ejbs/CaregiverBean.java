@@ -40,9 +40,6 @@ public class CaregiverBean {
     public void associatePatient() {
     }
     
-    public void addProcedure() {
-    }
-    
     public void associateMaterial() {
     }
 }

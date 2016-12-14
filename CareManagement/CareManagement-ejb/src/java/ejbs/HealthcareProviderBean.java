@@ -38,4 +38,10 @@ public class HealthcareProviderBean {
 
     public void removeHealthcareProvider() {
     }
+    
+    public void associatePatient() {
+    }
+    
+    public void associateCaregiver() {
+    }
 }

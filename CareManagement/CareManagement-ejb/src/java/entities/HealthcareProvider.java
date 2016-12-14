@@ -29,31 +29,31 @@ public class HealthcareProvider extends UserAuthentication implements Serializab
     
     @OneToMany(mappedBy = "healthcareProvider", cascade = CascadeType.REMOVE)
     private LinkedList<Caregiver> caregivers;
-    
+    /*
     @OneToMany(mappedBy = "healthcareProvider", cascade = CascadeType.REMOVE)
-    private LinkedList<Materials> materials;
+    private LinkedList<Materials> materials;*/
     
     protected HealthcareProvider(){
         super();
         this.patients =  new LinkedList<>();
         this.caregivers =  new LinkedList<>();
-        this.materials =  new LinkedList<>();
+        //this.materials =  new LinkedList<>();
     }
 
     public HealthcareProvider(String username, String password, String name, String email) {
         super(username, UserGroup.GROUP.HealthProvider, password, name, email);
         this.patients =  new LinkedList<>();
         this.caregivers =  new LinkedList<>();
-        this.materials =  new LinkedList<>();
+        //this.materials =  new LinkedList<>();
     }
-    
+    /*
     public void addMaterial(Materials m){
         this.materials.add(m);
     }
     
     public void removeMaterial(Materials m){
         this.materials.remove(m);
-    }
+    }*/
     
     public void addPatient(Patient p){
         this.patients.add(p);

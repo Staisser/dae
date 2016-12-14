@@ -38,11 +38,11 @@ public class Materials implements Serializable {
     @ManyToOne
     @JoinColumn(name = "CAREGIVER_MATERIALS_ID")
     private Caregiver caregiver;
-    
+    /*
     @NotNull
     @ManyToOne
     @JoinColumn(name = "HEALTHCAREPROVIDER_MATERIALS_ID")
-    private HealthcareProvider healthcareProvider;
+    private HealthcareProvider healthcareProvider;*/
     
     @ManyToMany
     @JoinTable(name = "MATERIALS_NEEDS",
@@ -57,27 +57,27 @@ public class Materials implements Serializable {
     private byte[] bytes;
     
     public Materials(HealthcareProvider healthcareProvider, Caregiver caregiver, String link) {
-        this.healthcareProvider = healthcareProvider;
+        //this.healthcareProvider = healthcareProvider;
         this.caregiver = caregiver;
         this.link = link;
         this.needs = new LinkedList<>();
     }
     
     public Materials(HealthcareProvider healthcareProvider, String link) {
-        this.healthcareProvider = healthcareProvider;
+        //this.healthcareProvider = healthcareProvider;
         this.link = link;
         this.needs = new LinkedList<>();
     }
     
     public Materials(HealthcareProvider healthcareProvider, Caregiver caregiver, byte[] bytes) {
-        this.healthcareProvider = healthcareProvider;
+        //this.healthcareProvider = healthcareProvider;
         this.caregiver = caregiver;
         this.bytes = bytes;
         this.needs = new LinkedList<>();
     }
     
     public Materials(HealthcareProvider healthcareProvider, byte[] bytes) {
-        this.healthcareProvider = healthcareProvider;
+        //this.healthcareProvider = healthcareProvider;
         this.bytes = bytes;
         this.needs = new LinkedList<>();
     }
@@ -85,14 +85,14 @@ public class Materials implements Serializable {
     public Materials() {
         this.needs = new LinkedList<>();
     }
-
+/*
     public HealthcareProvider getHealthcareProvider() {
         return healthcareProvider;
     }
 
     public void setHealthcareProvider(HealthcareProvider healthcareProvider) {
         this.healthcareProvider = healthcareProvider;
-    }
+    }*/
     
 
     public Caregiver getCaregiver() {
